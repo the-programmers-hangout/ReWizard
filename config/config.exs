@@ -1,9 +1,11 @@
 import Config
 
+config :logger, level: :info
+
 config :rewizard,
        #channel_id: 754787306090659850,
        channel_id: 757866846673174591,
-       rate_limit_seconds: 3
+       rate_limit_seconds: 30
 
 config :mnesia,
        dir: '.mnesia/#{Mix.env}/#{node()}'
@@ -12,10 +14,7 @@ config :nosedrum,
        prefix: "re!"
 
 config :nostrum,
-       num_shards: :auto,
-       level: :warn,
-       log_dispatch_events: true,
-       log_full_events: true
+       num_shards: :auto
 
 config :hammer,
        backend: {
