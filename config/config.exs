@@ -3,8 +3,7 @@ import Config
 config :logger, level: :info
 
 config :rewizard,
-       #channel_id: 754787306090659850,
-       channel_id: 757866846673174591,
+       channel_id: 696094142203166720,
        rate_limit_seconds: 30
 
 config :mnesia,
