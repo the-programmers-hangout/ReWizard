@@ -47,6 +47,6 @@ defmodule Rewizard.Cogs.Find do
         failed(regex, "Failed to parse regex at location #{location} with error #{inspect error}")
     end
 
-    Api.create_message(msg.channel_id, embed: reply)
+    Api.create_message!(msg.channel_id, embed: reply)
   end
 end

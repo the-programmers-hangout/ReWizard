@@ -2,10 +2,6 @@ import Config
 
 config :logger, level: :info
 
-config :rewizard,
-       channel_id: 696094142203166720,
-       rate_limit_seconds: 30
-
 config :mnesia,
        dir: '.mnesia/#{Mix.env}/#{node()}'
 
@@ -24,4 +20,3 @@ config :hammer,
          ]
        }
 
-import_config "secret.exs"

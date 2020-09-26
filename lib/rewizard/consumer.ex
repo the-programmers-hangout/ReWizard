@@ -21,7 +21,7 @@ defmodule Rewizard.Consumer do
     Enum.each(
       @commands,
       fn {name, cog} ->
-        CommandStorage.add_command({name}, cog)
+        CommandStorage.add_command([name], cog)
       end
     )
   end

@@ -41,7 +41,7 @@ defmodule Rewizard.Cogs.Help do
 
   @impl true
   def command(msg, []) do
-    Api.create_message(msg.channel_id, embed: help_all(CommandStorage.all_commands()))
+    Api.create_message!(msg.channel_id, embed: help_all(CommandStorage.all_commands()))
   end
 
   @impl true
@@ -50,6 +50,6 @@ defmodule Rewizard.Cogs.Help do
       nil -> no_such_command(name)
       command -> help(name, command)
     end
-    Api.create_message(msg.channel_id, embed: reply)
+    Api.create_message!(msg.channel_id, embed: reply)
   end
 end

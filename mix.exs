@@ -23,7 +23,7 @@ defmodule Rewizard.MixProject do
   defp deps do
     [
       {:nostrum, github: "Kraigie/nostrum", override: true},
-      {:nosedrum, "~> 0.2"},
+      {:nosedrum, github: "jchristgit/nosedrum"},
       {:ecto3_mnesia, "~> 0.2.1"},
       {:hammer, "~> 6.0"},
     ]
