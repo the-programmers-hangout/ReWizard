@@ -14,7 +14,7 @@ defmodule Rewizard.Cogs.Help do
   def description, do: "Get help on using Rewizard."
 
   @impl true
-  def predicates, do: [&Rewizard.Predicates.rate_limit/1, &Rewizard.Predicates.correct_channel/1]
+  def predicates, do: [&Rewizard.Predicates.correct_channel/1, &Rewizard.Predicates.rate_limit/1]
 
   def no_such_command(name) do
     %Embed{}

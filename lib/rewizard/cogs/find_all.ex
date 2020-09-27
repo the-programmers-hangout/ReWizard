@@ -12,7 +12,7 @@ defmodule Rewizard.Cogs.FindAll do
   def description, do: "Find all this regex matches in that target"
 
   @impl true
-  def predicates, do: [&Rewizard.Predicates.rate_limit/1, &Rewizard.Predicates.correct_channel/1]
+  def predicates, do: [&Rewizard.Predicates.correct_channel/1, &Rewizard.Predicates.rate_limit/1]
 
   def failed(regex, message) do
     %Embed{}

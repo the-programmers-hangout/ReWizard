@@ -5,8 +5,9 @@ config :nostrum,
   num_shards: :auto
 
 config :rewizard,
-  channel_id: System.fetch_env!("REWIZARD_CHANNEL") 
-    |> String.to_integer,
+  allowed_channels: System.fetch_env!("REWIZARD_CHANNEL") 
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.map(&String.to_integer/1),
   rate_limit_seconds: System.fetch_env!("REWIZARD_RATE_LIMIT") 
     |> String.to_integer
-

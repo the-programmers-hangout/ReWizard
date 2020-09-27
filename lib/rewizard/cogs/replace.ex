@@ -12,7 +12,7 @@ defmodule Rewizard.Cogs.Replace do
   def description, do: "Replace the input in the target against this regex"
 
   @impl true
-  def predicates, do: [&Rewizard.Predicates.rate_limit/1, &Rewizard.Predicates.correct_channel/1]
+  def predicates, do: [&Rewizard.Predicates.correct_channel/1, &Rewizard.Predicates.rate_limit/1]
 
   def failed(regex, message) do
     %Embed{}

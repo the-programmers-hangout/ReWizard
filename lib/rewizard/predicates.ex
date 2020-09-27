@@ -12,10 +12,11 @@ defmodule Rewizard.Predicates do
   end
 
   def correct_channel(msg) do
-    regex_channel = Application.get_env(:rewizard, :channel_id)
-    case msg.channel_id == regex_channel do
-      true -> :passthrough
-      false -> {:error, ""}
+    allowed_channels = Application.get_env(:rewizard, :allowed_channels)
+    if msg.channel_id in allowed_channels do
+      :passthrough
+    else
+      {:error, ""}
     end
   end
 end

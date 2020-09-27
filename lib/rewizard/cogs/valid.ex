@@ -12,7 +12,7 @@ defmodule Rewizard.Cogs.Valid do
   def description, do: "Check if this regex is valid."
 
   @impl true
-  def predicates, do: [&Rewizard.Predicates.rate_limit/1, &Rewizard.Predicates.correct_channel/1]
+  def predicates, do: [&Rewizard.Predicates.correct_channel/1, &Rewizard.Predicates.rate_limit/1]
 
   def failed(regex, message) do
     %Embed{}
