@@ -1,21 +1,21 @@
 # Rewizard
 
-**TODO: Add description**
+Rewizard is a regex evaluation bot for discord.
 
-## Installation
+It expects the following environmental variables to exist.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `rewizard` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:rewizard, "~> 0.1.0"}
-  ]
-end
+```
+REWIZARD_TOKEN=...
+REWIZARD_CHANNEL=...
+REWIZARD_RATE_LIMIT=...
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/rewizard](https://hexdocs.pm/rewizard).
+Rewizard will only work in the *single* channel it is assigned to,
+it will rate limit all users and attach an emoji for repeated spamming.
 
+All replies are Embeds so it shouldn't trigger other bots.
+
+
+## Deployment
+
+There is a multi stage docker file included that will build out a runnable container.
