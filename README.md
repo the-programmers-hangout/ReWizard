@@ -19,3 +19,8 @@ All replies are Embeds so it shouldn't trigger other bots.
 ## Deployment
 
 There is a multi stage docker file included that will build out a runnable container.
+
+```
+$ docker build -t rewizard .
+$ docker run --env-file=./env rewizard
+```
