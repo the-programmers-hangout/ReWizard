@@ -4,12 +4,14 @@ WORKDIR /build
 
 COPY mix.exs .
 COPY mix.lock .
-COPY lib lib
-COPY config config
 
 RUN mix local.hex --force
 RUN mix local.rebar --force
 RUN mix deps.get
+
+COPY config config
+COPY lib lib
+
 RUN env MIX_ENV=prod mix release
 
 FROM ubuntu:latest
