@@ -29,7 +29,7 @@ defmodule Rewizard.Cogs.Replace do
     |> put_field("Regex", "`#{Regex.source(regex)}`")
     |> put_field("Target", "`#{target}`")
     |> put_field("Replacement", "`#{replacement}`")
-    |> put_field("Result", "`#{inspect result}`")
+    |> put_field("Result", "`#{inspect(result)}`")
   end
 
   def replace(regex, string, replacement) do
@@ -38,12 +38,17 @@ defmodule Rewizard.Cogs.Replace do
 
   @impl true
   def command(msg, [regex, string, replacement]) do
-    reply = case Regex.compile(regex) do
-      {:ok, regex} ->
-        replace(regex, string, replacement)
-      {:error, {error, location}} ->
-        failed(regex, "Failed to parse regex at location #{location} with error #{inspect error}")
-    end
+    reply =
+      case Regex.compile(regex) do
+        {:ok, regex} ->
+          replace(regex, string, replacement)
+
+        {:error, {error, location}} ->
+          failed(
+            regex,
+            "Failed to parse regex at location #{location} with error #{inspect(error)}"
+          )
+      end
 
     Api.create_message!(msg.channel_id, embed: reply)
   end
