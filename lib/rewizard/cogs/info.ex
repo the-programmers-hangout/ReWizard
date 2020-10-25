@@ -6,7 +6,7 @@ defmodule Rewizard.Cogs.Info do
   import Nostrum.Struct.Embed
   alias Nostrum.Struct.User
 
-  @author "kibb#4205"
+  @contributors "kibb#4205, hhhapz#4096"
 
   @repository "[[Github]](https://github.com/jkbbr/rewizard)"
 
@@ -51,7 +51,7 @@ defmodule Rewizard.Cogs.Info do
     |> put_description("Rewizard is a regex validator and evaluator bot made with Elixir.")
     |> put_color(0x008000)
     |> put_field("**Prefix**", Application.get_env(:nosedrum, :prefix), true)
-    |> put_field("**Contributors**", @author, true)
+    |> put_field("**Contributors**", @contributors, true)
     |> put_field("**Build Info**", version)
     |> put_field("**Uptime**", uptime(), true)
     |> put_field("**Source**", @repository)
