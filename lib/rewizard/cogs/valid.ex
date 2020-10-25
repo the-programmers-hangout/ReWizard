@@ -32,12 +32,17 @@ defmodule Rewizard.Cogs.Valid do
 
   @impl true
   def command(msg, [regex]) do
-    reply = case Regex.compile(regex) do
-      {:ok, regex} ->
-        success(regex)
-      {:error, {error, location}} ->
-        failed(regex, "Failed to parse regex at location #{location} with error #{inspect error}")
-    end
+    reply =
+      case Regex.compile(regex) do
+        {:ok, regex} ->
+          success(regex)
+
+        {:error, {error, location}} ->
+          failed(
+            regex,
+            "Failed to parse regex at location #{location} with error #{inspect(error)}"
+          )
+      end
 
     Api.create_message!(msg.channel_id, embed: reply)
   end

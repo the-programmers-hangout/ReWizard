@@ -6,7 +6,7 @@ defmodule Rewizard.Application do
   def start(_type, _args) do
     children = [
       Nosedrum.Storage.ETS,
-      Rewizard.Consumer,
+      Rewizard.Consumer
     ]
 
     opts = [strategy: :one_for_one, name: Rewizard.Supervisor]

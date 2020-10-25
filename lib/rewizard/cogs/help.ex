@@ -46,10 +46,12 @@ defmodule Rewizard.Cogs.Help do
 
   @impl true
   def command(msg, [name]) do
-    reply = case CommandStorage.lookup_command(name) do
-      nil -> no_such_command(name)
-      command -> help(name, command)
-    end
+    reply =
+      case CommandStorage.lookup_command(name) do
+        nil -> no_such_command(name)
+        command -> help(name, command)
+      end
+
     Api.create_message!(msg.channel_id, embed: reply)
   end
 end

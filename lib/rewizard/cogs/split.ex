@@ -28,7 +28,7 @@ defmodule Rewizard.Cogs.Split do
     |> put_color(0x008000)
     |> put_field("Regex", "`#{Regex.source(regex)}`")
     |> put_field("Target", "`#{target}`")
-    |> put_field("Result", "`#{inspect result}`")
+    |> put_field("Result", "`#{inspect(result)}`")
   end
 
   def split(regex, target) do
@@ -40,12 +40,17 @@ defmodule Rewizard.Cogs.Split do
 
   @impl true
   def command(msg, [regex, target]) do
-    reply = case Regex.compile(regex) do
-      {:ok, regex} ->
-        split(regex, target)
-      {:error, {error, location}} ->
-        failed(regex, "Failed to parse regex at location #{location} with error #{inspect error}")
-    end
+    reply =
+      case Regex.compile(regex) do
+        {:ok, regex} ->
+          split(regex, target)
+
+        {:error, {error, location}} ->
+          failed(
+            regex,
+            "Failed to parse regex at location #{location} with error #{inspect(error)}"
+          )
+      end
 
     Api.create_message!(msg.channel_id, embed: reply)
   end
