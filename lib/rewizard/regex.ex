@@ -24,4 +24,11 @@ defmodule Rewizard.Regex do
          "Failed to parse regex at location #{location} with error #{inspect(error)}"}
     end
   end
+
+  def find(regex, target, captures) do
+    case Regex.run(regex, target, captures) do
+      nil -> {:fail, regex, "Didn't find anything"}
+      result -> {:ok, result}
+    end
+  end
 end
