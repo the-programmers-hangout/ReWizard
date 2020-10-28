@@ -37,8 +37,8 @@ defmodule Rewizard.Cogs.Replace do
       {:ok, regex} ->
         success(regex, source, replacement, Regex.replace(regex, source, replacement))
 
-      {:error, strRegex, msg} ->
-        failed(strRegex, msg)
+      {:error, str_regex, msg} ->
+        failed(str_regex, msg)
     end
   end
 
