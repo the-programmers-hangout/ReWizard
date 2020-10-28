@@ -5,9 +5,9 @@ defmodule Rewizard.Regex do
 
   def source(strRegex, flags) do
     if flags == "" do
-      "`/#{strRegex}/`"
+      {"`/#{strRegex}/`", nil}
     else
-      "`/#{strRegex}/` `-#{flags}`"
+      {"`/#{strRegex}/`", "`-#{flags}`"}
     end
   end
 

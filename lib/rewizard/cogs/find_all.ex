@@ -2,8 +2,8 @@ defmodule Rewizard.Cogs.FindAll do
   @behaviour Nosedrum.Command
 
   alias Nostrum.Api
-  alias Nostrum.Struct.Embed
   import Nostrum.Struct.Embed
+  alias Rewizard.Embeds
 
   @impl true
   def usage, do: ["find_all <regex> <target>", "find_all <regex> <flags> <target>"]
@@ -15,20 +15,16 @@ defmodule Rewizard.Cogs.FindAll do
   def predicates, do: [&Rewizard.Predicates.correct_channel/1, &Rewizard.Predicates.rate_limit/1]
 
   def success(regex, target, result) do
-    %Embed{}
-    |> put_title("Rewizard - Find All")
-    |> put_color(0x008000)
-    |> put_field("Regex", Rewizard.Regex.source(regex))
-    |> put_field("Target", "`#{target}`")
-    |> put_field("Result", "`#{inspect(result)}`")
+    Embeds.success("Find All")
+      |> Embeds.regex(regex)
+      |> put_field("Target", "`#{target}`")
+      |> put_field("Result", "`#{inspect(result)}`")
   end
 
-  def failed(regex, message) do
-    %Embed{}
-    |> put_title("Rewizard - Find All")
-    |> put_color(0xFF0000)
-    |> put_field("Regex", "`#{regex}`")
-    |> put_field("Error", message)
+  def failed(tpl_regex, message) do
+    Embeds.fail("Find All")
+      |> Embeds.regex(tpl_regex)
+      |> put_field("Error", message)
   end
 
   def find(strRegex, flags, target) do
