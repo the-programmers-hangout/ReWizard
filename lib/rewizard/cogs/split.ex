@@ -2,11 +2,11 @@ defmodule Rewizard.Cogs.Split do
   @behaviour Nosedrum.Command
 
   alias Nostrum.Api
-  alias Nostrum.Struct.Embed
   import Nostrum.Struct.Embed
+  alias Rewizard.Embeds
 
   @impl true
-  def usage, do: ["split <regex> <target>"]
+  def usage, do: ["split <regex> <target>", "split <regex> <flags> <target>"]
 
   @impl true
   def description, do: "Split the target with this regex."
@@ -14,44 +14,46 @@ defmodule Rewizard.Cogs.Split do
   @impl true
   def predicates, do: [&Rewizard.Predicates.correct_channel/1, &Rewizard.Predicates.rate_limit/1]
 
-  def failed(regex, message) do
-    %Embed{}
-    |> put_title("Rewizard - Find")
-    |> put_color(0xFF0000)
-    |> put_field("Regex", "`#{regex}`")
-    |> put_field("Error", message)
-  end
-
   def success(regex, target, result) do
-    %Embed{}
-    |> put_title("Rewizard - Find")
-    |> put_color(0x008000)
-    |> put_field("Regex", "`#{Regex.source(regex)}`")
+    Embeds.success("Split")
+    |> Embeds.regex(regex)
     |> put_field("Target", "`#{target}`")
     |> put_field("Result", "`#{inspect(result)}`")
   end
 
-  def split(regex, target) do
-    case Regex.split(regex, target) do
-      [] -> failed(regex, "Split resulted in an empty list")
-      result -> success(regex, target, result)
+  def failed(regex, message) do
+    Embeds.fail("Split")
+    |> Embeds.regex(regex)
+    |> put_field("Error", message)
+  end
+
+  def split(str_regex, flags, target) do
+    res =
+      with {:ok, regex} <- Rewizard.Regex.compile(str_regex, flags),
+           {:ok, result} <- Rewizard.Regex.split(regex, target),
+           do: success(regex, target, result)
+
+    case res do
+      {:error, str_regex, msg} ->
+        failed(str_regex, msg)
+
+      {:fail, regex, msg} ->
+        failed(regex, msg)
+
+      _ ->
+        res
     end
   end
 
   @impl true
   def command(msg, [regex, target]) do
-    reply =
-      case Regex.compile(regex) do
-        {:ok, regex} ->
-          split(regex, target)
+    reply = split(regex, "", target)
+    Api.create_message!(msg.channel_id, embed: reply)
+  end
 
-        {:error, {error, location}} ->
-          failed(
-            regex,
-            "Failed to parse regex at location #{location} with error #{inspect(error)}"
-          )
-      end
-
+  @impl true
+  def command(msg, [regex, flags, target]) do
+    reply = split(regex, flags, target)
     Api.create_message!(msg.channel_id, embed: reply)
   end
 end

@@ -3,11 +3,11 @@ defmodule Rewizard.Regex do
     source(regex.source, Regex.opts(regex))
   end
 
-  def source(strRegex, flags) do
+  def source(str_regex, flags) do
     if flags == "" do
-      {"`/#{strRegex}/`", nil}
+      {"`/#{str_regex}/`", nil}
     else
-      {"`/#{strRegex}/`", "`-#{flags}`"}
+      {"`/#{str_regex}/`", "`-#{flags}`"}
     end
   end
 
@@ -28,6 +28,13 @@ defmodule Rewizard.Regex do
   def find(regex, target, captures) do
     case Regex.run(regex, target, captures) do
       nil -> {:fail, regex, "Didn't find anything"}
+      result -> {:ok, result}
+    end
+  end
+
+  def split(regex, target) do
+    case Regex.split(regex, target) do
+      [] -> {:fail, regex, "Split resulted in an empty list"}
       result -> {:ok, result}
     end
   end

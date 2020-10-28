@@ -18,14 +18,14 @@ defmodule Rewizard.Embeds do
     |> put_color(@color_fail)
   end
 
-  def regex(embed, {strRegex, nil}) do
+  def regex(embed, {str_regex, nil}) do
     embed
-    |> put_field("Regex", strRegex)
+    |> put_field("Regex", str_regex)
   end
 
-  def regex(embed, {strRegex, flags}) do
+  def regex(embed, {str_regex, flags}) do
     embed
-    |> put_field("Regex", strRegex)
+    |> put_field("Regex", str_regex)
     |> put_field("Flags", flags)
   end
 
