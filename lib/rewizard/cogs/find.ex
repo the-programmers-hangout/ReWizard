@@ -16,26 +16,26 @@ defmodule Rewizard.Cogs.Find do
 
   def success(regex, target, result) do
     Embeds.success("Find")
-      |> Embeds.regex(regex)
-      |> put_field("Target", "`#{target}`")
-      |> put_field("Result", "`#{inspect(result)}`")
+    |> Embeds.regex(regex)
+    |> put_field("Target", "`#{target}`")
+    |> put_field("Result", "`#{inspect(result)}`")
   end
 
   def failed(tpl_regex, message) do
     Embeds.fail("Find")
-      |> Embeds.regex(tpl_regex)
-      |> put_field("Error", message)
+    |> Embeds.regex(tpl_regex)
+    |> put_field("Error", message)
   end
 
-  def find(strRegex, flags, target) do
+  def find(str_regex, flags, target) do
     res =
-      with {:ok, regex} <- Rewizard.Regex.compile(strRegex, flags),
+      with {:ok, regex} <- Rewizard.Regex.compile(str_regex, flags),
            {:ok, result} <- Rewizard.Regex.find(regex, target, capture: :first),
            do: success(regex, target, result)
 
     case res do
-      {:error, strRegex, msg} ->
-        failed(strRegex, msg)
+      {:error, str_regex, msg} ->
+        failed(str_regex, msg)
 
       {:fail, regex, msg} ->
         failed(Rewizard.Regex.source(regex), msg)
@@ -46,14 +46,14 @@ defmodule Rewizard.Cogs.Find do
   end
 
   @impl true
-  def command(msg, [strRegex, target]) do
-    reply = find(strRegex, "", target)
+  def command(msg, [str_regex, target]) do
+    reply = find(str_regex, "", target)
     Api.create_message!(msg.channel_id, embed: reply)
   end
 
   @impl true
-  def command(msg, [strRegex, flags, target]) do
-    reply = find(strRegex, flags, target)
+  def command(msg, [str_regex, flags, target]) do
+    reply = find(str_regex, flags, target)
     Api.create_message!(msg.channel_id, embed: reply)
   end
 end

@@ -16,23 +16,23 @@ defmodule Rewizard.Cogs.Valid do
 
   def success(regex) do
     Embeds.success("Valid")
-      |> Embeds.regex(regex)
-      |> put_field("Valid", "Yes.")
+    |> Embeds.regex(regex)
+    |> put_field("Valid", "Yes.")
   end
 
   def failed(tpl_regex, message) do
     Embeds.fail("Valid")
-      |> Embeds.regex(tpl_regex)
-      |> put_field("Error", message)
+    |> Embeds.regex(tpl_regex)
+    |> put_field("Error", message)
   end
 
-  def valid(strRegex, flags) do
-    case Rewizard.Regex.compile(strRegex, flags) do
+  def valid(str_regex, flags) do
+    case Rewizard.Regex.compile(str_regex, flags) do
       {:ok, regex} ->
         success(regex)
 
-      {:error, strRegex, msg} ->
-        failed(strRegex, msg)
+      {:error, str_regex, msg} ->
+        failed(str_regex, msg)
     end
   end
 

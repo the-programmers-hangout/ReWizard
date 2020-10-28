@@ -20,13 +20,13 @@ defmodule Rewizard.Embeds do
 
   def regex(embed, {strRegex, nil}) do
     embed
-      |> put_field("Regex", strRegex)
+    |> put_field("Regex", strRegex)
   end
 
   def regex(embed, {strRegex, flags}) do
     embed
-      |> put_field("Regex", strRegex)
-      |> put_field("Flags", flags)
+    |> put_field("Regex", strRegex)
+    |> put_field("Flags", flags)
   end
 
   def regex(embed, regex) do
