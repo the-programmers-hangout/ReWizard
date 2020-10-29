@@ -30,7 +30,7 @@ defmodule Rewizard.Cogs.FindAll do
   def find(str_regex, flags, target) do
     res =
       with {:ok, regex} <- Rewizard.Regex.compile(str_regex, flags),
-           {:ok, result} <- Rewizard.Regex.find(regex, target, []),
+           {:ok, result} <- Rewizard.Regex.find_all(regex, target),
            do: success(regex, target, result)
 
     case res do

@@ -30,7 +30,7 @@ defmodule Rewizard.Cogs.Find do
   def find(str_regex, flags, target) do
     res =
       with {:ok, regex} <- Rewizard.Regex.compile(str_regex, flags),
-           {:ok, result} <- Rewizard.Regex.find(regex, target, capture: :first),
+           {:ok, result} <- Rewizard.Regex.find(regex, target),
            do: success(regex, target, result)
 
     case res do

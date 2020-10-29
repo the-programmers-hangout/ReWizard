@@ -25,9 +25,16 @@ defmodule Rewizard.Regex do
     end
   end
 
-  def find(regex, target, captures) do
-    case Regex.run(regex, target, captures) do
+  def find(regex, target) do
+    case Regex.run(regex, target) do
       nil -> {:fail, regex, "Didn't find anything"}
+      result -> {:ok, result}
+    end
+  end
+
+  def find_all(regex, target) do
+    case Regex.scan(regex, target) do
+      [] -> {:fail, regex, "Didn't find anything"}
       result -> {:ok, result}
     end
   end
