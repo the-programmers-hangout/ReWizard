@@ -17,7 +17,8 @@ defmodule Rewizard.Consumer do
     "split" => Rewizard.Cogs.Split,
     "replace" => Rewizard.Cogs.Replace,
     "help" => Rewizard.Cogs.Help,
-    "info" => Rewizard.Cogs.Info
+    "info" => Rewizard.Cogs.Info,
+    "flag" => Rewizard.Cogs.Flag
   }
 
   def handle_event({:READY, _data, _ws}) do
