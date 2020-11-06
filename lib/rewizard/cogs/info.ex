@@ -2,11 +2,11 @@ defmodule Rewizard.Cogs.Info do
   @behaviour Nosedrum.Command
 
   alias Nostrum.Api
-  alias Nostrum.Struct.Embed
   import Nostrum.Struct.Embed
   alias Nostrum.Struct.User
+  alias Rewizard.Embeds
 
-  @contributors "kibb#4205, elkell#7131"
+  @contributors ["kibb#4205", "elkell#7131"]
 
   @repository "[[Github]](https://github.com/the-programmers-hangout/ReWizard)"
 
@@ -46,15 +46,13 @@ defmodule Rewizard.Cogs.Info do
     %{rewizard: rw, elixir: ex, nostrum: ns} = version()
     version = ~s"```fix\nVersion: #{rw}\nNostrum: #{ns}\nElixir: #{ex}```"
 
-    %Embed{}
-    |> put_title(~s"#{me.username}##{me.discriminator}")
+    Embeds.success(~s"#{me.username}##{me.discriminator}")
     |> put_description("Rewizard is a regex validator and evaluator bot made with Elixir.")
-    |> put_color(0x008000)
-    |> put_field("**Prefix**", Application.get_env(:nosedrum, :prefix), true)
-    |> put_field("**Contributors**", @contributors, true)
-    |> put_field("**Build Info**", version)
-    |> put_field("**Uptime**", uptime(), true)
-    |> put_field("**Source**", @repository)
+    |> put_field("Prefix", Application.get_env(:nosedrum, :prefix), true)
+    |> put_field("Contributors", Enum.join(@contributors, "\n"), true)
+    |> put_field("Build Info", version)
+    |> put_field("Uptime", uptime(), true)
+    |> put_field("Source", @repository)
     |> put_thumbnail(User.avatar_url(me))
   end
 

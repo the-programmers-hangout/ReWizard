@@ -4,8 +4,8 @@ defmodule Rewizard.Cogs.Help do
   alias Nosedrum.Storage.ETS, as: CommandStorage
 
   alias Nostrum.Api
-  alias Nostrum.Struct.Embed
   import Nostrum.Struct.Embed
+  alias Rewizard.Embeds
 
   @impl true
   def usage, do: ["help", "help <command>"]
@@ -17,26 +17,20 @@ defmodule Rewizard.Cogs.Help do
   def predicates, do: [&Rewizard.Predicates.correct_channel/1, &Rewizard.Predicates.rate_limit/1]
 
   def no_such_command(name) do
-    %Embed{}
-    |> put_title("Rewizard - Help - Not found!")
-    |> put_color(0xFF0000)
+    Embeds.fail("Help - ")
     |> put_field("Command", name)
   end
 
   def help(name, command) do
-    %Embed{}
-    |> put_title("Rewizard - Help")
-    |> put_color(0x008000)
+    Embeds.success("Help")
     |> put_field("Command", name)
     |> put_field("Description", command.description())
     |> put_field("Usage", Enum.join(command.usage(), ", "))
   end
 
   def help_all(commands) do
-    %Embed{}
-    |> put_title("Rewizard - Help")
-    |> put_color(0x008000)
-    |> put_field("Commands", Enum.join(Map.keys(commands), ", "))
+    Embeds.success("Help")
+    |> put_field("Commands", "```properties\n" <> Enum.join(Map.keys(commands), "\n") <> "```")
   end
 
   @impl true
