@@ -6,9 +6,9 @@ defmodule Rewizard.Cogs.Info do
   import Nostrum.Struct.Embed
   alias Nostrum.Struct.User
 
-  @contributors "kibb#4205, hhhapz#4096"
+  @contributors "kibb#4205, elkell#7131"
 
-  @repository "[[Github]](https://github.com/jkbbr/rewizard)"
+  @repository "[[Github]](https://github.com/the-programmers-hangout/ReWizard)"
 
   @impl true
   def usage, do: ["info"]
