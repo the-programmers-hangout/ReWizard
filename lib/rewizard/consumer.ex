@@ -28,8 +28,6 @@ defmodule Rewizard.Consumer do
         CommandStorage.add_command([name], cog)
       end
     )
-
-    :ets.insert(:uptime, {"uptime", DateTime.utc_now()})
   end
 
   def handle_event({:MESSAGE_CREATE, %{author: %{bot: true}}, _ws}) do

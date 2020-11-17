@@ -6,7 +6,7 @@ defmodule Rewizard.Cogs.Info do
   alias Nostrum.Struct.User
   alias Rewizard.Embeds
 
-  @contributors ["kibb#4205", "elkell#7131"]
+  @contributors ["kibb#4205", "elkell#0001"]
 
   @repository "[[Github]](https://github.com/the-programmers-hangout/ReWizard)"
 
@@ -28,10 +28,7 @@ defmodule Rewizard.Cogs.Info do
     }
 
   def uptime do
-    secs =
-      :ets.lookup(:uptime, "uptime")
-      |> (fn [{_, start}] -> DateTime.diff(DateTime.utc_now(), start) end).()
-
+    secs = :erlang.statistics(:wall_clock) |> (fn {ms, _} ->  div(ms, 1000) end ).()
     days = div(secs, 86400)
     rem = secs - days * 86400
     hours = div(rem, 3600)
