@@ -35,7 +35,7 @@ defmodule Rewizard.Consumer do
   end
 
   def handle_event({:MESSAGE_CREATE, msg, _ws}) do
-    if msg.content =~ ~r/<@!?#{Me.get().id}>/ do
+    if msg.content =~ ~r/^<@!?#{Me.get().id}>$/ do
       Rewizard.Cogs.Info.command(msg, [])
     else
       CommandInvoker.handle_message(msg, CommandStorage)
